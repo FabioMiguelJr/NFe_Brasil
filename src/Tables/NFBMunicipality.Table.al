@@ -36,7 +36,7 @@ table 50102 "NFB Municipality"
     keys
     {
         key(PK; Code) { Clustered = true; }
-        key(Name; Name, UF) { }
+        key(NameUF; Name, UF) { }
     }
 
     fieldgroups

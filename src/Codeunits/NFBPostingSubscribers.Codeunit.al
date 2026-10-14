@@ -61,6 +61,7 @@ codeunit 50108 "NFB Posting Subscribers"
             NFBTaxLine.DeleteForDocument(Database::"Sales Line", SalesHeader."Document Type".AsInteger(), SalesHeader."No.");
         if CommitIsSuppressed or not NFBDocumentBuilder.ShouldIssue(SalesHeader."NFB Operation Type") then
             exit;
+        Commit();
         if SalesInvHdrNo <> '' then
             NFBCreateDocument.TryCreate("NFB Source Doc. Type"::"Sales Invoice", SalesInvHdrNo);
         if SalesCrMemoHdrNo <> '' then
@@ -107,7 +108,7 @@ codeunit 50108 "NFB Posting Subscribers"
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPurchCrMemoLineInsert', '', false, false)]
-    local procedure PurchPostOnAfterPurchCrMemoLineInsert(var PurchCrMemoLine: Record "Purch. Cr. Memo Line"; PurchLine: Record "Purchase Line")
+    local procedure PurchPostOnAfterPurchCrMemoLineInsert(var PurchCrMemoLine: Record "Purch. Cr. Memo Line"; var PurchLine: Record "Purchase Line")
     var
         NFBTaxLine: Record "NFB Tax Line";
     begin
@@ -132,6 +133,7 @@ codeunit 50108 "NFB Posting Subscribers"
         end;
         if CommitIsSupressed or not NFBDocumentBuilder.ShouldIssue(PurchaseHeader."NFB Operation Type") then
             exit;
+        Commit();
         if PurchInvHdrNo <> '' then
             NFBCreateDocument.TryCreate("NFB Source Doc. Type"::"Purchase Invoice", PurchInvHdrNo);
         if PurchCrMemoHdrNo <> '' then

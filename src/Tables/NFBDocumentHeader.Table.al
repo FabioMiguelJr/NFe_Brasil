@@ -34,6 +34,7 @@ table 50109 "NFB Document Header"
         field(6; Environment; Enum "NFB Environment")
         {
             Caption = 'Environment (tpAmb)';
+            InitValue = Homologation;
         }
         field(7; "Posting Date"; Date)
         {
@@ -93,10 +94,12 @@ table 50109 "NFB Document Header"
         field(21; "Destination Id"; Enum "NFB Destination Id")
         {
             Caption = 'Destination (idDest)';
+            InitValue = Internal;
         }
         field(22; Purpose; Enum "NFB Purpose")
         {
             Caption = 'Purpose (finNFe)';
+            InitValue = Normal;
         }
         field(23; "Final Consumer"; Boolean)
         {
@@ -396,7 +399,7 @@ table 50109 "NFB Document Header"
         key(Source; "Source Doc. Type", "Source Doc. No.") { }
         key(Number; Model, Series, "NF No.") { }
         key(AccessKey; "Access Key") { }
-        key(Status; Status, "Issue DateTime") { }
+        key(StatusDate; Status, "Issue DateTime") { }
     }
 
     fieldgroups
