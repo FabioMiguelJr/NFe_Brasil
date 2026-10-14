@@ -86,6 +86,44 @@ table 50100 "NFB Setup"
             Caption = 'Default Transfer Operation Type';
             TableRelation = "NFB Operation Type";
         }
+        field(30; "Validate XSD"; Boolean)
+        {
+            Caption = 'Validate XML against XSD';
+            ToolTip = 'Specifies whether the generated XML is checked against the SEFAZ schemas imported in NF-e XSD Schemas.';
+        }
+        field(31; "Include IBS/CBS Group"; Boolean)
+        {
+            Caption = 'Include IBS/CBS Group';
+            InitValue = true;
+            ToolTip = 'Specifies whether the IBSCBS and IBSCBSTot groups of NT 2025.002 are written to the XML.';
+        }
+        field(32; "Software Version"; Text[20])
+        {
+            Caption = 'Software Version (verProc)';
+            InitValue = 'NFB 1.0';
+        }
+        field(33; "Resp. Tech. CNPJ"; Code[14])
+        {
+            Caption = 'Technical Responsible CNPJ';
+        }
+        field(34; "Resp. Tech. Contact"; Text[60])
+        {
+            Caption = 'Technical Responsible Contact';
+        }
+        field(35; "Resp. Tech. E-Mail"; Text[60])
+        {
+            Caption = 'Technical Responsible E-Mail';
+        }
+        field(36; "Resp. Tech. Phone"; Text[14])
+        {
+            Caption = 'Technical Responsible Phone';
+        }
+        field(37; "UTC Offset"; Text[6])
+        {
+            Caption = 'UTC Offset';
+            InitValue = '-03:00';
+            ToolTip = 'Specifies the time zone offset written in dhEmi and dhSaiEnt. Brasília time is -03:00.';
+        }
     }
 
     keys

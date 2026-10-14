@@ -38,6 +38,22 @@ page 50119 "NFB Setup"
                 field("Purch. Return Operation Type"; Rec."Purch. Return Operation Type") { ApplicationArea = All; }
                 field("Transfer Operation Type"; Rec."Transfer Operation Type") { ApplicationArea = All; }
             }
+            group(XmlGroup)
+            {
+                Caption = 'XML';
+                field("Validate XSD"; Rec."Validate XSD") { ApplicationArea = All; ToolTip = 'Checks each generated XML against the SEFAZ schemas imported in XSD Schemas.'; }
+                field("Include IBS/CBS Group"; Rec."Include IBS/CBS Group") { ApplicationArea = All; ToolTip = 'Adds the IBS/CBS groups of NT 2025.002 to the XML. Turn it off if the SEFAZ of your state does not accept them yet.'; }
+                field("Software Version"; Rec."Software Version") { ApplicationArea = All; ToolTip = 'Version of the issuing application (verProc).'; }
+                field("UTC Offset"; Rec."UTC Offset") { ApplicationArea = All; ToolTip = 'Time zone of the issue date in the XML, for example -03:00.'; }
+            }
+            group(TechResponsible)
+            {
+                Caption = 'Technical Responsible (infRespTec)';
+                field("Resp. Tech. CNPJ"; Rec."Resp. Tech. CNPJ") { ApplicationArea = All; }
+                field("Resp. Tech. Contact"; Rec."Resp. Tech. Contact") { ApplicationArea = All; }
+                field("Resp. Tech. E-Mail"; Rec."Resp. Tech. E-Mail") { ApplicationArea = All; }
+                field("Resp. Tech. Phone"; Rec."Resp. Tech. Phone") { ApplicationArea = All; }
+            }
             group(Provider)
             {
                 Caption = 'Provider';
@@ -58,6 +74,8 @@ page 50119 "NFB Setup"
             action(NCM) { ApplicationArea = All; Caption = 'NCM'; Image = List; RunObject = page "NFB NCM List"; }
             action(CFOP) { ApplicationArea = All; Caption = 'CFOP'; Image = List; RunObject = page "NFB CFOP List"; }
             action(cClassTrib) { ApplicationArea = All; Caption = 'cClassTrib'; Image = List; RunObject = page "NFB cClassTrib List"; }
+            action(XSDSchemas) { ApplicationArea = All; Caption = 'XSD Schemas'; Image = XMLSetup; RunObject = page "NFB XSD Schemas"; }
+            action(DocumentFiles) { ApplicationArea = All; Caption = 'NF-e Files'; Image = Documents; RunObject = page "NFB Document Files"; }
         }
         area(Processing)
         {

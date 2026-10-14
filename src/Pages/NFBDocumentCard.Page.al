@@ -160,6 +160,50 @@ page 50110 "NFB Document Card"
                     CurrPage.Update(false);
                 end;
             }
+            action(GenerateXml)
+            {
+                ApplicationArea = All;
+                Caption = 'Generate XML';
+                Image = CreateXMLFile;
+                ToolTip = 'Validates the NF-e, builds the XML in layout 4.00 and saves it in the NF-e files. The XML is not signed.';
+
+                trigger OnAction()
+                var
+                    NFBFileMgt: Codeunit "NFB File Mgt";
+                begin
+                    NFBFileMgt.GenerateXml(Rec, true);
+                    CurrPage.Update(false);
+                end;
+            }
+            action(DownloadXml)
+            {
+                ApplicationArea = All;
+                Caption = 'Download XML';
+                Image = ExportFile;
+                ToolTip = 'Downloads the most recent XML of the NF-e (authorized, signed or unsigned, in this order).';
+
+                trigger OnAction()
+                var
+                    NFBFileMgt: Codeunit "NFB File Mgt";
+                begin
+                    NFBFileMgt.DownloadXml(Rec);
+                end;
+            }
+            action(PrintDANFE)
+            {
+                ApplicationArea = All;
+                Caption = 'Print DANFE';
+                Image = Print;
+                ToolTip = 'Prints the DANFE of the NF-e.';
+
+                trigger OnAction()
+                var
+                    NFBDocumentHeader: Record "NFB Document Header";
+                begin
+                    NFBDocumentHeader.SetRange("No.", Rec."No.");
+                    Report.Run(Report::"NFB DANFE", true, false, NFBDocumentHeader);
+                end;
+            }
             action(RecalculateTotals)
             {
                 ApplicationArea = All;
@@ -178,6 +222,15 @@ page 50110 "NFB Document Card"
         }
         area(Navigation)
         {
+            action(Files)
+            {
+                ApplicationArea = All;
+                Caption = 'Files';
+                Image = Documents;
+                ToolTip = 'Shows the XML and other files saved for this NF-e.';
+                RunObject = page "NFB Document Files";
+                RunPageLink = "Document No." = field("No.");
+            }
             action(SourceDocument)
             {
                 ApplicationArea = All;
@@ -196,6 +249,9 @@ page 50110 "NFB Document Card"
         {
             actionref(ValidateNFe_Promoted; ValidateNFe) { }
             actionref(SourceDocument_Promoted; SourceDocument) { }
+            actionref(GenerateXml_Promoted; GenerateXml) { }
+            actionref(DownloadXml_Promoted; DownloadXml) { }
+            actionref(PrintDANFE_Promoted; PrintDANFE) { }
         }
     }
 

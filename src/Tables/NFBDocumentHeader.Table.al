@@ -449,7 +449,7 @@ table 50109 "NFB Document Header"
 
     procedure TestStatusOpen()
     begin
-        if not (Status in [Status::Draft, Status::Validated, Status::Rejected]) then
+        if not (Status in [Status::Draft, Status::Validated, Status::"XML Generated", Status::Rejected]) then
             Error(NotEditableErr, "No.", Status);
     end;
 

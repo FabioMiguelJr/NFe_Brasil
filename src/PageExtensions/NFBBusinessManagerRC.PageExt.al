@@ -72,6 +72,13 @@ pageextension 50140 "NFB Business Manager RC" extends "Business Manager Role Cen
                     ToolTip = 'Opens the IBS/CBS tax classifications.';
                     RunObject = page "NFB cClassTrib List";
                 }
+                action(NFBXSDSchemas)
+                {
+                    ApplicationArea = All;
+                    Caption = 'XSD Schemas';
+                    ToolTip = 'Opens the SEFAZ schemas used to check the generated XML.';
+                    RunObject = page "NFB XSD Schemas";
+                }
             }
         }
     }

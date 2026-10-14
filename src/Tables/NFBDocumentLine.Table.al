@@ -373,6 +373,7 @@ table 50110 "NFB Document Line"
     keys
     {
         key(PK; "Document No.", "Line No.") { Clustered = true; }
+        key(ItemSeq; "Document No.", "Item Seq.") { }
     }
 
     procedure LineTotal(): Decimal

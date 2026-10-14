@@ -2,7 +2,7 @@
 
 Extensão AL (prefixo `NFB`, IDs 50100–50199) que adiciona ao Business Central 26 W1 on-premises os cadastros fiscais, o cálculo e a contabilização dos tributos brasileiros e o documento fiscal NF-e modelo 55.
 
-Esta entrega cobre a **fase 1** do plano. As fases seguintes (XML e DANFE, PlugNotas, SEFAZ direto, apuração e contas a pagar dos tributos) ainda não estão implementadas.
+Estão entregues a **fase 1** (cadastros, impostos, contabilização e documento fiscal) e a **fase 2** (XML, validação XSD, arquivos, DANFE e relatório por período). As fases seguintes (PlugNotas, SEFAZ direto com assinatura, apuração e contas a pagar dos tributos) ainda não estão implementadas.
 
 > **Atenção:** o código não foi compilado no ambiente onde foi escrito, porque os símbolos do BC não estavam acessíveis. Antes de publicar, compile no VS Code com os símbolos do seu BC 26 (`AL: Download symbols` e depois `AL: Package`) e corrija o que o compilador apontar.
 
@@ -18,6 +18,30 @@ Esta entrega cobre a **fase 1** do plano. As fases seguintes (XML e DANFE, PlugN
 | Motor de impostos | Codeunit NFB Tax Engine, com resultado gravado na tabela NFB Tax Line |
 | Contabilização | Codeunit NFB Tax Posting, que gera linhas de conta contábil antes do lançamento |
 | Documento fiscal | NFB Document Header/Line e tabelas filhas, monitor de NF-e, numeração, chave de acesso e validação |
+
+## O que a fase 2 entrega
+
+| Área | Objetos |
+|---|---|
+| XML da NF-e | Codeunit NFB XML Builder (50113): XML layout 4.00 sem assinatura, com os grupos de IBS/CBS da NT 2025.002 v1.30 |
+| Validação XSD | Codeunit NFB XSD Validator (50114) e tabela/página NFB XSD Schema(s) (50119/50121) para importar o pacote de schemas da SEFAZ |
+| Arquivos | Tabela NFB Document File (50118), página NFB Document Files (50120), codeunit NFB File Mgt (50115) e enum NFB File Type (50114) |
+| Exportação | Download do XML de uma nota, ZIP das notas selecionadas e relatório NFB Export XML Batch (50102), que gera um ZIP por período |
+| DANFE | Relatório NFB DANFE (50100), layout RDLC retrato com código de barras CODE-128C da chave de acesso |
+| Relatório | NFB NF-e by Period (50101), lista paisagem com totais de ICMS, ST, IPI, PIS, COFINS, IBS e CBS |
+
+### Como usar
+
+1. No **NF-e Setup**, grupo **XML**, marque **Validate XSD** se quiser conferir cada XML contra o schema, ajuste o fuso (**UTC Offset**, padrão -03:00) e preencha o **Responsável técnico** (infRespTec), que é obrigatório para algumas UFs.
+2. Para validar contra o XSD, abra **XSD Schemas** e use **Import Schemas** com o pacote ZIP de schemas publicado no Portal da NF-e (por exemplo `PL_010_V1.30.zip`). O arquivo `nfe_v4.00.xsd` é marcado como schema principal.
+3. No **NF-e Monitor** ou no cartão da NF-e, use **Generate XML**. A ação valida a nota, monta o XML, confere com o XSD (se configurado), grava o arquivo `<chave>-nfe.xml` em **Files** e muda o status para **XML Generated**. A ação pode ser repetida enquanto a nota não for transmitida; cada execução guarda um novo arquivo.
+4. **Download XML** baixa o XML mais recente. **Export XML (ZIP)** baixa um ZIP com as notas selecionadas, e **Export XML by Period** faz o mesmo para um período.
+5. **Print DANFE** imprime o DANFE. Enquanto a nota não for autorizada (fase 3 ou 4), o DANFE sai com a marca "SEM VALOR FISCAL".
+6. **NF-e by Period** (em Relatórios do NF-e Monitor ou pela busca) lista as notas de um período com os totais.
+
+O XML gerado segue o layout da SEFAZ e pode ser assinado e transmitido por qualquer emissor. A assinatura digital fica para a fase 4.
+
+Os layouts RDLC são gerados pelo script `tools/generate_rdlc.py` (`python3 tools/generate_rdlc.py` na raiz do projeto). Para mudar o visual do DANFE, altere o script e gere de novo, ou edite o `.rdlc` direto no Report Builder.
 
 ## Fluxo
 
@@ -71,5 +95,10 @@ Ao criar objetos nas próximas fases, confira os IDs já usados pelas duas exten
 - DIFAL calculado apenas com base única.
 - Devolução de compra usa a nota de crédito de compra. A remessa de devolução não gera NF-e.
 - Os indicadores (cues) do Role Center ficaram para uma fase seguinte.
-- Sem geração de XML, DANFE ou transmissão nesta fase. O modo de emissão no Setup já existe, mas só "File Only" terá efeito a partir da fase 2.
+- Sem transmissão nem assinatura digital. O XML sai sem assinatura; a validação XSD insere uma assinatura fictícia só para conferir o restante do documento.
+- O DANFE imprime uma NF-e por execução, com os dados do cabeçalho na primeira página.
+- O código de barras do DANFE usa a fonte IDAutomationC128S. Ela precisa estar instalada no servidor do BC para que o PDF saia com o código de barras.
+- A validação XSD usa .NET (System.Xml) e grava os schemas numa pasta temporária do servidor, por isso só funciona on-premises.
+- Os grupos IBS/CBS seguem a NT 2025.002 v1.30. Se a SEFAZ da UF ainda não aceitar esses grupos, desmarque **Include IBS/CBS Group** no Setup.
+- Emitentes do Simples Nacional e MEI não são suportados no XML (CSOSN), pois o emitente é do regime normal.
 - Lucro Presumido: PIS e COFINS cumulativos, sem crédito nas compras.
