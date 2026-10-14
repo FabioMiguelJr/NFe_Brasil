@@ -54,7 +54,7 @@ Ao criar objetos nas próximas fases, confira os IDs já usados pelas duas exten
 
 ## Configuração inicial
 
-1. Publique e instale a extensão. A instalação carrega os dados padrão: CFOPs principais, 15 tipos de operação, regras de exemplo e o município do Rio de Janeiro. Também é possível usar **Load Default Data** no NF-e Setup. Atribua o conjunto de permissões **NFB All** aos usuários que vão usar a extensão.
+1. Publique e instale a extensão. A instalação carrega os dados padrão: CFOPs principais, 15 tipos de operação, regras de exemplo e o município do Rio de Janeiro. Também é possível usar **Load Default Data** no NF-e Setup. No Role Center **Business Manager**, o menu **NF-e Setup** reúne todas as páginas de configuração. Atribua o conjunto de permissões **NFB All** aos usuários que vão usar a extensão.
 2. Em **Company Information**, preencha CNPJ, IE, IM, CNAE, regime tributário e endereço com código IBGE do município.
 3. Importe as tabelas de referência pelas ações **Import CSV** (arquivos separados por `;` com linha de cabeçalho):
    - Municípios: `código IBGE;nome;UF`
