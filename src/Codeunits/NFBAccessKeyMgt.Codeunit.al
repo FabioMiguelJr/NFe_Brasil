@@ -1,4 +1,4 @@
-codeunit 50205 "NFB Access Key Mgt"
+codeunit 50105 "NFB Access Key Mgt"
 {
     // Access key layout (44 digits): cUF(2) + AAMM(4) + CNPJ(14) + mod(2) + serie(3) + nNF(9) + tpEmis(1) + cNF(8) + cDV(1)
 

@@ -1,4 +1,4 @@
-pageextension 50205 "NFB Item Card" extends "Item Card"
+pageextension 50105 "NFB Item Card" extends "Item Card"
 {
     layout
     {

@@ -1,4 +1,4 @@
-enum 50210 "NFB Freight Mode"
+enum 50110 "NFB Freight Mode"
 {
     Extensible = false;
     Caption = 'Freight Mode (modFrete)';

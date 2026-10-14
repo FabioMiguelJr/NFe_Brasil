@@ -1,4 +1,4 @@
-table 50203 "NFB NCM"
+table 50103 "NFB NCM"
 {
     Caption = 'NCM';
     DataClassification = CustomerContent;

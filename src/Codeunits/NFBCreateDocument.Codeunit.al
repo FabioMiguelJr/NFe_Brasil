@@ -1,4 +1,4 @@
-codeunit 50210 "NFB Create Document"
+codeunit 50110 "NFB Create Document"
 {
     // Runs the builder in its own Codeunit.Run so a failure after posting does not surface as a posting error.
     TableNo = "NFB Document Header";

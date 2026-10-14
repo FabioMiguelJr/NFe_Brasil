@@ -1,4 +1,4 @@
-pageextension 50230 "NFB Transfer Order" extends "Transfer Order"
+pageextension 50130 "NFB Transfer Order" extends "Transfer Order"
 {
     layout
     {

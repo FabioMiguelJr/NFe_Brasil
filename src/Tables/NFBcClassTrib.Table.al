@@ -1,4 +1,4 @@
-table 50205 "NFB cClassTrib"
+table 50105 "NFB cClassTrib"
 {
     Caption = 'IBS/CBS Tax Classification (cClassTrib)';
     DataClassification = CustomerContent;

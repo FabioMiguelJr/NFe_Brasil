@@ -1,4 +1,4 @@
-table 50206 "NFB Tax Rule"
+table 50106 "NFB Tax Rule"
 {
     Caption = 'NF-e Tax Rule';
     DataClassification = CustomerContent;

@@ -1,4 +1,4 @@
-enum 50211 "NFB Tax Type"
+enum 50111 "NFB Tax Type"
 {
     Extensible = false;
     Caption = 'Tax Type';

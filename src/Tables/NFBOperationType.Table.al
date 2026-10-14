@@ -1,4 +1,4 @@
-table 50207 "NFB Operation Type"
+table 50107 "NFB Operation Type"
 {
     Caption = 'NF-e Operation Type';
     DataClassification = CustomerContent;

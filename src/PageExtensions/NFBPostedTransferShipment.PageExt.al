@@ -1,4 +1,4 @@
-pageextension 50232 "NFB Posted Transfer Shipment" extends "Posted Transfer Shipment"
+pageextension 50132 "NFB Posted Transfer Shipment" extends "Posted Transfer Shipment"
 {
     layout
     {

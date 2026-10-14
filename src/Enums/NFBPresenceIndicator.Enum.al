@@ -1,4 +1,4 @@
-enum 50209 "NFB Presence Indicator"
+enum 50109 "NFB Presence Indicator"
 {
     Extensible = false;
     Caption = 'Buyer Presence (indPres)';

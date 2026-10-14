@@ -1,4 +1,4 @@
-page 50202 "NFB Municipalities"
+page 50102 "NFB Municipalities"
 {
     PageType = List;
     SourceTable = "NFB Municipality";

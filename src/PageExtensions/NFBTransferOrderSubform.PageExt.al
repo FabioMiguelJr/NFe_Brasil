@@ -1,4 +1,4 @@
-pageextension 50231 "NFB Transfer Order Subform" extends "Transfer Order Subform"
+pageextension 50131 "NFB Transfer Order Subform" extends "Transfer Order Subform"
 {
     layout
     {

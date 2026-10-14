@@ -1,4 +1,4 @@
-pageextension 50204 "NFB Shipping Agents" extends "Shipping Agents"
+pageextension 50104 "NFB Shipping Agents" extends "Shipping Agents"
 {
     layout
     {

@@ -1,4 +1,4 @@
-table 50216 "NFB Tax Line"
+table 50116 "NFB Tax Line"
 {
     Caption = 'NF-e Tax Line';
     DataClassification = CustomerContent;

@@ -1,4 +1,4 @@
-codeunit 50207 "NFB Install"
+codeunit 50107 "NFB Install"
 {
     // Default data for an issuer in RJ, regime normal, Lucro Presumido.
     // Rates and CSTs are starting points and must be reviewed by the company's accountant.

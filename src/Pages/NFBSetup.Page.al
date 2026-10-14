@@ -1,4 +1,4 @@
-page 50200 "NFB Setup"
+page 50100 "NFB Setup"
 {
     PageType = Card;
     SourceTable = "NFB Setup";

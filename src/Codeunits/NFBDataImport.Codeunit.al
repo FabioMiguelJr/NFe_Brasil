@@ -1,4 +1,4 @@
-codeunit 50206 "NFB Data Import"
+codeunit 50106 "NFB Data Import"
 {
     // Imports reference tables from semicolon-separated files with a header row.
     // Municipalities: IBGE code;name;UF

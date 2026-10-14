@@ -1,6 +1,6 @@
 # NF-e Brasil para Business Central
 
-Extensão AL (prefixo `NFB`, IDs 50200–50399, fora das faixas da Academia2026 e da BC-CustomerFollowUp) que adiciona ao Business Central 26 W1 on-premises os cadastros fiscais, o cálculo e a contabilização dos tributos brasileiros e o documento fiscal NF-e modelo 55.
+Extensão AL (prefixo `NFB`, IDs 50100–50199) que adiciona ao Business Central 26 W1 on-premises os cadastros fiscais, o cálculo e a contabilização dos tributos brasileiros e o documento fiscal NF-e modelo 55.
 
 Esta entrega cobre a **fase 1** do plano. As fases seguintes (XML e DANFE, PlugNotas, SEFAZ direto, apuração e contas a pagar dos tributos) ainda não estão implementadas.
 
@@ -31,18 +31,6 @@ Esta entrega cobre a **fase 1** do plano. As fases seguintes (XML e DANFE, PlugN
 5. No **NF-e Monitor**, **Validate** confere os dados, atribui número e série e gera a chave de acesso. O status passa a Validated.
 
 Origens suportadas: fatura e nota de crédito de venda, fatura de compra (importação ou NF-e de entrada própria), nota de crédito de compra (devolução de compra) e remessa de transferência.
-
-## Faixa de IDs
-
-A extensão usa a faixa **50200–50399**. A faixa original era 50100–50199, mas a publicação falhou com o erro "The application object of type 'Table' with the ID '50114' is defined in multiple apps", porque ela já é ocupada por outras extensões publicadas no mesmo servidor:
-
-| Extensão | Faixa |
-|---|---|
-| Academia2026 | 50100–50149 |
-| BC-CustomerFollowUp | 50150–50199 |
-| NF-e Brasil | 50200–50399 |
-
-Todos os objetos e os campos das extensões de tabela foram renumerados somando 100 ao ID original (por exemplo, a tabela 50114 passou a ser 50214). Novos objetos das próximas fases devem ficar dentro de 50200–50399.
 
 ## Configuração inicial
 

@@ -1,4 +1,4 @@
-pageextension 50225 "NFB Purchase Order Subform" extends "Purchase Order Subform"
+pageextension 50125 "NFB Purchase Order Subform" extends "Purchase Order Subform"
 {
     layout
     {

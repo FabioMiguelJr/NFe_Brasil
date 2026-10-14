@@ -1,4 +1,4 @@
-pageextension 50208 "NFB Payment Methods" extends "Payment Methods"
+pageextension 50108 "NFB Payment Methods" extends "Payment Methods"
 {
     layout
     {

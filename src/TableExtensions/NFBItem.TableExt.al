@@ -1,8 +1,8 @@
-tableextension 50205 "NFB Item" extends Item
+tableextension 50105 "NFB Item" extends Item
 {
     fields
     {
-        field(50200; "NFB NCM"; Code[8])
+        field(50100; "NFB NCM"; Code[8])
         {
             Caption = 'NCM';
             DataClassification = CustomerContent;
@@ -19,35 +19,35 @@ tableextension 50205 "NFB Item" extends Item
                 end;
             end;
         }
-        field(50201; "NFB CEST"; Code[7])
+        field(50101; "NFB CEST"; Code[7])
         {
             Caption = 'CEST';
             DataClassification = CustomerContent;
             Numeric = true;
         }
-        field(50202; "NFB Origin"; Enum "NFB Goods Origin")
+        field(50102; "NFB Origin"; Enum "NFB Goods Origin")
         {
             Caption = 'Goods Origin';
             DataClassification = CustomerContent;
         }
-        field(50203; "NFB Ex TIPI"; Code[3])
+        field(50103; "NFB Ex TIPI"; Code[3])
         {
             Caption = 'Ex TIPI';
             DataClassification = CustomerContent;
         }
-        field(50204; "NFB GTIN"; Code[14])
+        field(50104; "NFB GTIN"; Code[14])
         {
             Caption = 'GTIN (EAN)';
             DataClassification = CustomerContent;
             Numeric = true;
         }
-        field(50205; "NFB Taxable Unit"; Code[10])
+        field(50105; "NFB Taxable Unit"; Code[10])
         {
             Caption = 'Taxable Unit of Measure';
             DataClassification = CustomerContent;
             TableRelation = "Unit of Measure";
         }
-        field(50206; "NFB Taxable Unit Factor"; Decimal)
+        field(50106; "NFB Taxable Unit Factor"; Decimal)
         {
             Caption = 'Taxable Units per Base Unit';
             DataClassification = CustomerContent;
@@ -55,12 +55,12 @@ tableextension 50205 "NFB Item" extends Item
             InitValue = 1;
             MinValue = 0;
         }
-        field(50207; "NFB Tax Group"; Code[20])
+        field(50107; "NFB Tax Group"; Code[20])
         {
             Caption = 'NF-e Tax Group';
             DataClassification = CustomerContent;
         }
-        field(50208; "NFB cClassTrib"; Code[6])
+        field(50108; "NFB cClassTrib"; Code[6])
         {
             Caption = 'Default cClassTrib';
             DataClassification = CustomerContent;

@@ -1,4 +1,4 @@
-pageextension 50202 "NFB Ship-to Address" extends "Ship-to Address"
+pageextension 50102 "NFB Ship-to Address" extends "Ship-to Address"
 {
     layout
     {

@@ -1,4 +1,4 @@
-enum 50201 "NFB Issue Mode"
+enum 50101 "NFB Issue Mode"
 {
     Extensible = true;
     Caption = 'NF-e Issue Mode';

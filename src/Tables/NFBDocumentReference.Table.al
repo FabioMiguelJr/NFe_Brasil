@@ -1,4 +1,4 @@
-table 50213 "NFB Document Reference"
+table 50113 "NFB Document Reference"
 {
     Caption = 'NF-e Referenced Document (NFref)';
     DataClassification = CustomerContent;

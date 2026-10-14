@@ -1,4 +1,4 @@
-table 50201 "NFB Series"
+table 50101 "NFB Series"
 {
     Caption = 'NF-e Series';
     DataClassification = CustomerContent;

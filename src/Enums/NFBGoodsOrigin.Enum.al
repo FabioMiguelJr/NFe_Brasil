@@ -1,4 +1,4 @@
-enum 50206 "NFB Goods Origin"
+enum 50106 "NFB Goods Origin"
 {
     Extensible = false;
     Caption = 'Goods Origin (orig)';

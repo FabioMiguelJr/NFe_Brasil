@@ -1,4 +1,4 @@
-page 50208 "NFB Tax Posting Setup"
+page 50108 "NFB Tax Posting Setup"
 {
     PageType = List;
     SourceTable = "NFB Tax Posting Setup";

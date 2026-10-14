@@ -1,4 +1,4 @@
-page 50203 "NFB NCM List"
+page 50103 "NFB NCM List"
 {
     PageType = List;
     SourceTable = "NFB NCM";

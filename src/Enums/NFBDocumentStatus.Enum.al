@@ -1,4 +1,4 @@
-enum 50202 "NFB Document Status"
+enum 50102 "NFB Document Status"
 {
     Extensible = false;
     Caption = 'NF-e Status';

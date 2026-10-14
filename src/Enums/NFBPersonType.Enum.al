@@ -1,4 +1,4 @@
-enum 50204 "NFB Person Type"
+enum 50104 "NFB Person Type"
 {
     Extensible = false;
     Caption = 'Person Type';

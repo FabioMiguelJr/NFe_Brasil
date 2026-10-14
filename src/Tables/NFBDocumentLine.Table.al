@@ -1,4 +1,4 @@
-table 50210 "NFB Document Line"
+table 50110 "NFB Document Line"
 {
     Caption = 'NF-e Line';
     DataClassification = CustomerContent;

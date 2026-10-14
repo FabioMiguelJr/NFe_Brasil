@@ -1,4 +1,4 @@
-enum 50207 "NFB Tax Regime"
+enum 50107 "NFB Tax Regime"
 {
     Extensible = false;
     Caption = 'Tax Regime (CRT)';

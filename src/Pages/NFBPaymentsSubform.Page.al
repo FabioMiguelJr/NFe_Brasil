@@ -1,4 +1,4 @@
-page 50212 "NFB Payments Subform"
+page 50112 "NFB Payments Subform"
 {
     PageType = ListPart;
     SourceTable = "NFB Document Payment";

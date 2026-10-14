@@ -1,4 +1,4 @@
-pageextension 50221 "NFB Purchase Order" extends "Purchase Order"
+pageextension 50121 "NFB Purchase Order" extends "Purchase Order"
 {
     layout
     {

@@ -1,4 +1,4 @@
-codeunit 50202 "NFB Tax Posting"
+codeunit 50102 "NFB Tax Posting"
 {
     // Business Central W1 has no Brazilian taxes. The extension posts them through G/L account lines
     // ("system lines") added to the document right before posting, so they run in the same transaction:

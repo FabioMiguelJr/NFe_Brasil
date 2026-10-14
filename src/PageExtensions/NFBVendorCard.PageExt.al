@@ -1,4 +1,4 @@
-pageextension 50203 "NFB Vendor Card" extends "Vendor Card"
+pageextension 50103 "NFB Vendor Card" extends "Vendor Card"
 {
     layout
     {

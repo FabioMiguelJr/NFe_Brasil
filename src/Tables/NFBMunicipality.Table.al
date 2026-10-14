@@ -1,4 +1,4 @@
-table 50202 "NFB Municipality"
+table 50102 "NFB Municipality"
 {
     Caption = 'IBGE Municipality';
     DataClassification = CustomerContent;

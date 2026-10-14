@@ -1,8 +1,8 @@
-tableextension 50200 "NFB Company Information" extends "Company Information"
+tableextension 50100 "NFB Company Information" extends "Company Information"
 {
     fields
     {
-        field(50201; "NFB CNPJ"; Code[14])
+        field(50101; "NFB CNPJ"; Code[14])
         {
             Caption = 'CNPJ';
             DataClassification = CustomerContent;
@@ -16,33 +16,33 @@ tableextension 50200 "NFB Company Information" extends "Company Information"
                     NFBValidation.CheckCpfCnpj("NFB CNPJ");
             end;
         }
-        field(50203; "NFB IE"; Code[14])
+        field(50103; "NFB IE"; Code[14])
         {
             Caption = 'State Registration (IE)';
             DataClassification = CustomerContent;
         }
-        field(50204; "NFB IM"; Code[15])
+        field(50104; "NFB IM"; Code[15])
         {
             Caption = 'Municipal Registration (IM)';
             DataClassification = CustomerContent;
         }
-        field(50205; "NFB CNAE"; Code[7])
+        field(50105; "NFB CNAE"; Code[7])
         {
             Caption = 'CNAE';
             DataClassification = CustomerContent;
         }
-        field(50206; "NFB Tax Regime"; Enum "NFB Tax Regime")
+        field(50106; "NFB Tax Regime"; Enum "NFB Tax Regime")
         {
             Caption = 'Tax Regime (CRT)';
             DataClassification = CustomerContent;
             InitValue = Normal;
         }
-        field(50207; "NFB ST IE"; Code[14])
+        field(50107; "NFB ST IE"; Code[14])
         {
             Caption = 'ST Substitute IE (IEST)';
             DataClassification = CustomerContent;
         }
-        field(50210; "NFB Municipality Code"; Code[7])
+        field(50110; "NFB Municipality Code"; Code[7])
         {
             Caption = 'Municipality (IBGE)';
             DataClassification = CustomerContent;
@@ -59,17 +59,17 @@ tableextension 50200 "NFB Company Information" extends "Company Information"
                     City := CopyStr(NFBMunicipality.Name, 1, MaxStrLen(City));
             end;
         }
-        field(50211; "NFB UF"; Code[2])
+        field(50111; "NFB UF"; Code[2])
         {
             Caption = 'State (UF)';
             DataClassification = CustomerContent;
         }
-        field(50212; "NFB Address No."; Text[60])
+        field(50112; "NFB Address No."; Text[60])
         {
             Caption = 'Address Number';
             DataClassification = CustomerContent;
         }
-        field(50213; "NFB District"; Text[60])
+        field(50113; "NFB District"; Text[60])
         {
             Caption = 'District (Bairro)';
             DataClassification = CustomerContent;

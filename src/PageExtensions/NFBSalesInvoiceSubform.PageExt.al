@@ -1,4 +1,4 @@
-pageextension 50215 "NFB Sales Invoice Subform" extends "Sales Invoice Subform"
+pageextension 50115 "NFB Sales Invoice Subform" extends "Sales Invoice Subform"
 {
     layout
     {

@@ -1,4 +1,4 @@
-pageextension 50234 "NFB Purch. Return Ord. Subform" extends "Purchase Return Order Subform"
+pageextension 50134 "NFB Purch. Return Ord. Subform" extends "Purchase Return Order Subform"
 {
     layout
     {

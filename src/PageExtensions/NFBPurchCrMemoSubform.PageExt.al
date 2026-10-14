@@ -1,4 +1,4 @@
-pageextension 50227 "NFB Purch. Cr. Memo Subform" extends "Purch. Cr. Memo Subform"
+pageextension 50127 "NFB Purch. Cr. Memo Subform" extends "Purch. Cr. Memo Subform"
 {
     layout
     {

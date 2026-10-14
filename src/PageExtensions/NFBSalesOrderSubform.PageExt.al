@@ -1,4 +1,4 @@
-pageextension 50214 "NFB Sales Order Subform" extends "Sales Order Subform"
+pageextension 50114 "NFB Sales Order Subform" extends "Sales Order Subform"
 {
     layout
     {

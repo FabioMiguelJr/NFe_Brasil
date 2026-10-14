@@ -1,4 +1,4 @@
-pageextension 50226 "NFB Purch. Invoice Subform" extends "Purch. Invoice Subform"
+pageextension 50126 "NFB Purch. Invoice Subform" extends "Purch. Invoice Subform"
 {
     layout
     {
