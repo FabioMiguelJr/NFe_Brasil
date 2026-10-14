@@ -5,3 +5,5 @@
 rad.json
 *.g.xlf
 .vscode/launch.json
+.vscode/.alcache/*.json
+.gitignore
