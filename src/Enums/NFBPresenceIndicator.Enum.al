@@ -8,6 +8,6 @@ enum 50109 "NFB Presence Indicator"
     value(2; Internet) { Caption = '2 - Internet'; }
     value(3; Telephone) { Caption = '3 - Telephone'; }
     value(4; "Home Delivery") { Caption = '4 - NFC-e home delivery'; }
-    value(5; "In Person Outside") { Caption = '5 - In person, outside the establishment'; }
+    value(5; "In Person Outside") { Caption = '5 - In person outside the establishment'; }
     value(9; Other) { Caption = '9 - Other'; }
 }
