@@ -78,6 +78,13 @@ page 50119 "NFB Setup"
                 }
                 field("Status Query Minutes"; Rec."Status Query Minutes") { ApplicationArea = All; }
             }
+            group(Settlement)
+            {
+                Caption = 'Tax Settlement';
+                field("Tax Settlement Nos."; Rec."Tax Settlement Nos.") { ApplicationArea = All; }
+                field("Settlement Jnl. Template"; Rec."Settlement Jnl. Template") { ApplicationArea = All; }
+                field("Settlement Jnl. Batch"; Rec."Settlement Jnl. Batch") { ApplicationArea = All; }
+            }
         }
     }
 
@@ -96,6 +103,8 @@ page 50119 "NFB Setup"
             action(XSDSchemas) { ApplicationArea = All; Caption = 'XSD Schemas'; Image = XMLSetup; RunObject = page "NFB XSD Schemas"; }
             action(DocumentFiles) { ApplicationArea = All; Caption = 'NF-e Files'; Image = Documents; RunObject = page "NFB Document Files"; }
             action(DocumentEvents) { ApplicationArea = All; Caption = 'NF-e Events'; Image = History; RunObject = page "NFB Document Events"; }
+            action(TaxDueDates) { ApplicationArea = All; Caption = 'Tax Due Date Setup'; Image = DueDate; RunObject = page "NFB Tax Due Date Setup"; }
+            action(TaxSettlements) { ApplicationArea = All; Caption = 'Tax Settlements'; Image = SettleOpenTransactions; RunObject = page "NFB Tax Settlements"; }
         }
         area(Processing)
         {

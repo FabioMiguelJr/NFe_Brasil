@@ -18,6 +18,43 @@ codeunit 50107 "NFB Install"
         InsertMunicipalities();
         InsertOperationTypes();
         InsertTaxRules();
+        InsertTaxDueDateSetup();
+    end;
+
+    /// <summary>
+    /// Guides and due days of the monthly settlement. Federal dates follow the general rule (25th of the following
+    /// month, anticipated); ICMS of RJ depends on the activity and is left at 0 to be filled in. Vendors are not created.
+    /// </summary>
+    procedure InsertTaxDueDateSetup()
+    var
+        TaxType: Enum "NFB Tax Type";
+        GuideType: Enum "NFB Guide Type";
+    begin
+        InsertTaxDueDate(TaxType::ICMS, GuideType::DARJ, '', 0, 0);
+        InsertTaxDueDate(TaxType::FCP, GuideType::DARJ, '', 0, 0);
+        InsertTaxDueDate(TaxType::"ICMS ST", GuideType::DARJ, '', 0, 0);
+        InsertTaxDueDate(TaxType::"FCP ST", GuideType::DARJ, '', 0, 0);
+        InsertTaxDueDate(TaxType::DIFAL, GuideType::GNRE, '', 15, 0);
+        InsertTaxDueDate(TaxType::"FCP Dest.", GuideType::GNRE, '', 15, 0);
+        InsertTaxDueDate(TaxType::IPI, GuideType::DARF, '5123', 25, 0);
+        InsertTaxDueDate(TaxType::PIS, GuideType::DARF, '8109', 25, 0);
+        InsertTaxDueDate(TaxType::COFINS, GuideType::DARF, '2172', 25, 0);
+    end;
+
+    local procedure InsertTaxDueDate(TaxType: Enum "NFB Tax Type"; GuideType: Enum "NFB Guide Type"; RevenueCode: Code[10]; DueDay: Integer; NonWorkingDayRule: Option)
+    var
+        NFBTaxDueDateSetup: Record "NFB Tax Due Date Setup";
+    begin
+        if NFBTaxDueDateSetup.Get(TaxType, '') then
+            exit;
+        NFBTaxDueDateSetup.Init();
+        NFBTaxDueDateSetup."Tax Type" := TaxType;
+        NFBTaxDueDateSetup."Guide Type" := GuideType;
+        NFBTaxDueDateSetup."Revenue Code" := RevenueCode;
+        NFBTaxDueDateSetup."Due Day" := DueDay;
+        NFBTaxDueDateSetup."Months After Period" := 1;
+        NFBTaxDueDateSetup."Non-Working Day Rule" := NonWorkingDayRule;
+        NFBTaxDueDateSetup.Insert();
     end;
 
     local procedure InsertSetup()

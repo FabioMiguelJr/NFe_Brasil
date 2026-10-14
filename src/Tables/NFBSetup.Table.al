@@ -137,6 +137,24 @@ table 50100 "NFB Setup"
             MinValue = 1;
             ToolTip = 'Specifies how often the job queue entry queries the sent NF-e and the pending events.';
         }
+        field(42; "Tax Settlement Nos."; Code[20])
+        {
+            Caption = 'Tax Settlement Nos.';
+            TableRelation = "No. Series";
+            ToolTip = 'Specifies the number series of the monthly tax settlements.';
+        }
+        field(43; "Settlement Jnl. Template"; Code[10])
+        {
+            Caption = 'Settlement Journal Template';
+            TableRelation = "Gen. Journal Template";
+            ToolTip = 'Specifies the general journal template whose source code is used for the settlement entries. The entries carry the template and batch so the G/L register can be reversed.';
+        }
+        field(44; "Settlement Jnl. Batch"; Code[10])
+        {
+            Caption = 'Settlement Journal Batch';
+            TableRelation = "Gen. Journal Batch".Name where("Journal Template Name" = field("Settlement Jnl. Template"));
+            ToolTip = 'Specifies the general journal batch recorded on the settlement entries. Nothing is written to the batch itself.';
+        }
     }
 
     keys

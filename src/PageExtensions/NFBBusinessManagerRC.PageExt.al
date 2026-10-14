@@ -86,6 +86,20 @@ pageextension 50140 "NFB Business Manager RC" extends "Business Manager Role Cen
                     ToolTip = 'Opens the cancellation and correction letter events.';
                     RunObject = page "NFB Document Events";
                 }
+                action(NFBTaxDueDateSetup)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Tax Due Date Setup';
+                    ToolTip = 'Opens the guide, tax authority vendor and due date of each tax.';
+                    RunObject = page "NFB Tax Due Date Setup";
+                }
+                action(NFBTaxSettlements)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Tax Settlements';
+                    ToolTip = 'Opens the monthly tax settlements (apuração) and the payables of the guides.';
+                    RunObject = page "NFB Tax Settlements";
+                }
             }
         }
     }

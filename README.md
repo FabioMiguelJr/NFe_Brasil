@@ -2,7 +2,7 @@
 
 Extensão AL (prefixo `NFB`, IDs 50100–50199) que adiciona ao Business Central 26 W1 on-premises os cadastros fiscais, o cálculo e a contabilização dos tributos brasileiros e o documento fiscal NF-e modelo 55.
 
-Estão entregues a **fase 1** (cadastros, impostos, contabilização e documento fiscal), a **fase 2** (XML, validação XSD, arquivos, DANFE e relatório por período) e a **fase 3** (emissão pelo PlugNotas e modo arquivo). As fases seguintes (SEFAZ direto com assinatura, apuração e contas a pagar dos tributos) ainda não estão implementadas.
+Estão entregues a **fase 1** (cadastros, impostos, contabilização e documento fiscal), a **fase 2** (XML, validação XSD, arquivos, DANFE e relatório por período), a **fase 3** (emissão pelo PlugNotas e modo arquivo) e a **fase 5** (apuração mensal dos tributos e títulos a pagar das guias). A fase 4 (transmissão direta à SEFAZ com assinatura no BC) ficou fora desta versão.
 
 > **Atenção:** o código não foi compilado no ambiente onde foi escrito, porque os símbolos do BC não estavam acessíveis. Antes de publicar, compile no VS Code com os símbolos do seu BC 26 (`AL: Download symbols` e depois `AL: Package`) e corrija o que o compilador apontar.
 
@@ -93,6 +93,31 @@ A documentação completa do PlugNotas (Swagger) não pôde ser lida no ambiente
 - o campo do destinatário estrangeiro (`destinatario.idEstrangeiro`);
 - o status `DENEGADO`, que a extensão trata como denegação, e o cStat devolvido em cada consulta.
 
+## O que a fase 5 entrega
+
+- **Apuração mensal** (NF-e Tax Settlements): uma apuração por mês, com uma linha por tributo e, para ST, FCP ST, DIFAL e FCP de destino devidos a outra UF, uma linha por UF.
+- **Calculate** soma os tributos das faturas e notas de crédito de venda e de compra lançadas no mês. Entram só os documentos cujo tipo de operação calcula e contabiliza tributos, e só os tributos que o Tax Posting Setup contabilizou: débitos nas vendas (conta a recolher) e créditos nas compras (conta a recuperar). Assim a apuração bate com o saldo das contas. Notas de crédito entram com sinal negativo.
+- O **saldo credor** da última apuração lançada é transportado para o mês seguinte. Na primeira apuração, o saldo credor inicial pode ser digitado na linha (ele já deve estar na conta a recuperar). **Outros débitos** e **outros créditos** são ajustes manuais, lançados contra a conta de ajuste.
+- **Post** lança, num único registro contábil, o débito da conta a recolher, o crédito da conta a recuperar (créditos usados) e o título a pagar: um movimento de fornecedor por guia, com vencimento, para o fornecedor que representa o órgão (Receita Federal, SEFAZ-RJ ou SEFAZ de outra UF). O crédito que sobra fica na conta a recuperar.
+- **Tax Due Date Setup**: por tributo (e, se quiser, por UF) define a guia (DARF, DARJ, GNRE), o código de receita, o fornecedor, o dia de vencimento, quantos meses depois do período, o que fazer em fim de semana ou feriado (antecipar, postergar ou manter) e o calendário base com os feriados.
+- **Reopen** reabre uma apuração lançada depois que o registro contábil dela foi estornado (G/L Registers, **Reverse Register**). Só a última apuração lançada pode ser reaberta. As apurações seguem a ordem dos meses: um mês só é lançado depois do anterior, e reabrir um mês obriga a recalcular os meses seguintes que estiverem abertos.
+- **Documents** mostra cada documento que entrou na apuração; **Payables** abre os títulos criados; **Print** imprime o relatório de apuração por período (NF-e Tax Settlement).
+
+### Configurar a apuração
+
+1. No **NF-e Setup**, grupo Tax Settlement, preencha a numeração das apurações e um modelo e lote de diário geral. O lançamento não grava linhas no lote; o modelo e o lote ficam nos movimentos para que o registro possa ser estornado pelo Reverse Register, e o código de origem vem do modelo.
+2. Cadastre os fornecedores dos órgãos (Receita Federal, SEFAZ-RJ e as SEFAZ das UFs em que houver ST ou DIFAL a recolher) com grupo de lançamento de fornecedor.
+3. Em **Tax Due Date Setup**, informe o fornecedor de cada tributo e confira os dados carregados por padrão: IPI (DARF 5123), PIS (DARF 8109) e COFINS (DARF 2172) vencem no dia 25 do mês seguinte, antecipando se não for dia útil; DIFAL e FCP de destino (GNRE) no dia 15. O vencimento do ICMS, FCP e ST do RJ depende da atividade e ficou em 0: preencha o dia ou digite o vencimento na linha da apuração. Para uma UF com regra própria, crie uma linha com o tributo e a UF.
+4. Se houver outros débitos ou créditos, informe a conta de ajuste no Tax Due Date Setup ou na linha.
+
+### Apurar um mês
+
+1. Em **NF-e Tax Settlements**, crie uma apuração e informe qualquer data do mês em Starting Date.
+2. Use **Calculate**. Recalcule sempre que lançar mais documentos do mês; os ajustes digitados nas linhas são mantidos.
+3. Confira as linhas, os documentos e os vencimentos, e use **Post**.
+
+Os pagamentos das guias seguem o fluxo normal de contas a pagar do BC (diário de pagamentos aplicado ao título).
+
 ## Fluxo
 
 1. O usuário escolhe o **tipo de operação** no documento (há um padrão no Setup e no cliente ou fornecedor). Ele define natureza da operação, CFOP, finalidade e se a NF-e é emitida.
@@ -124,7 +149,7 @@ A extensão usa a faixa 50100–50199, que também é usada pelas extensões Aca
 | pageextension NFB Posted Sales Credit Memos | 50120 | 50139 | UsingAPI |
 | campo NFB Person Type (Customer) | 50100 | 50108 | ABC Vehicle No. (Academia2026) |
 
-Ao criar objetos nas próximas fases, confira os IDs já usados pelas duas extensões antes de escolher um número livre.
+A fase 5 usou IDs livres nas duas extensões: tabelas 50121–50124, páginas 50123–50127, codeunit 50125, relatório 50103 e enums 50116–50117. Ao criar objetos nas próximas fases, confira os IDs já usados pelas duas extensões antes de escolher um número livre.
 
 ## Configuração inicial
 
@@ -154,3 +179,8 @@ Ao criar objetos nas próximas fases, confira os IDs já usados pelas duas exten
 - Os grupos IBS/CBS seguem a NT 2025.002 v1.30. Se a SEFAZ da UF ainda não aceitar esses grupos, desmarque **Include IBS/CBS Group** no Setup.
 - Emitentes do Simples Nacional e MEI não são suportados no XML (CSOSN), pois o emitente é do regime normal.
 - Lucro Presumido: PIS e COFINS cumulativos, sem crédito nas compras.
+- A apuração não gera o arquivo nem o código de barras das guias (DARF, DARJ, GNRE): ela cria o título a pagar, e a guia é emitida no portal do órgão.
+- A apuração não cobre a escrituração fiscal (SPED EFD ICMS/IPI e EFD Contribuições).
+- IBS e CBS de 2026 são informativos (ano de teste) e não têm vencimento padrão. Se o Tax Posting Setup contabilizar esses tributos, eles aparecem na apuração e precisam de fornecedor e vencimento, ou a linha deve ser excluída antes de lançar.
+- O DIFAL nas compras para uso e consumo segue o que o Tax Posting Setup lançou (crédito na conta a recuperar, se houver) e precisa ser conferido pelo contador.
+- Remessas de transferência não entram na apuração, porque não contabilizam tributos.
