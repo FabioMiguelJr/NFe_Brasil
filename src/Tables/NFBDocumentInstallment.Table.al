@@ -1,4 +1,4 @@
-table 50112 "NFB Document Installment"
+table 50212 "NFB Document Installment"
 {
     Caption = 'NF-e Installment (dup)';
     DataClassification = CustomerContent;

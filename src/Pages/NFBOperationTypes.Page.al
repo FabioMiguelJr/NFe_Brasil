@@ -1,4 +1,4 @@
-page 50107 "NFB Operation Types"
+page 50207 "NFB Operation Types"
 {
     PageType = List;
     SourceTable = "NFB Operation Type";

@@ -1,4 +1,4 @@
-enum 50100 "NFB Environment"
+enum 50200 "NFB Environment"
 {
     Extensible = false;
     Caption = 'NF-e Environment';

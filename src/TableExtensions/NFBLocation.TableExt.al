@@ -1,8 +1,8 @@
-tableextension 50113 "NFB Location" extends Location
+tableextension 50213 "NFB Location" extends Location
 {
     fields
     {
-        field(50101; "NFB CNPJ"; Code[14])
+        field(50201; "NFB CNPJ"; Code[14])
         {
             Caption = 'CNPJ';
             DataClassification = CustomerContent;
@@ -16,12 +16,12 @@ tableextension 50113 "NFB Location" extends Location
                     NFBValidation.CheckCpfCnpj("NFB CNPJ");
             end;
         }
-        field(50103; "NFB IE"; Code[14])
+        field(50203; "NFB IE"; Code[14])
         {
             Caption = 'State Registration (IE)';
             DataClassification = CustomerContent;
         }
-        field(50110; "NFB Municipality Code"; Code[7])
+        field(50210; "NFB Municipality Code"; Code[7])
         {
             Caption = 'Municipality (IBGE)';
             DataClassification = CustomerContent;
@@ -38,17 +38,17 @@ tableextension 50113 "NFB Location" extends Location
                     City := CopyStr(NFBMunicipality.Name, 1, MaxStrLen(City));
             end;
         }
-        field(50111; "NFB UF"; Code[2])
+        field(50211; "NFB UF"; Code[2])
         {
             Caption = 'State (UF)';
             DataClassification = CustomerContent;
         }
-        field(50112; "NFB Address No."; Text[60])
+        field(50212; "NFB Address No."; Text[60])
         {
             Caption = 'Address Number';
             DataClassification = CustomerContent;
         }
-        field(50113; "NFB District"; Text[60])
+        field(50213; "NFB District"; Text[60])
         {
             Caption = 'District (Bairro)';
             DataClassification = CustomerContent;

@@ -1,4 +1,4 @@
-enum 50103 "NFB Source Doc. Type"
+enum 50203 "NFB Source Doc. Type"
 {
     Extensible = false;
     Caption = 'NF-e Source Document Type';

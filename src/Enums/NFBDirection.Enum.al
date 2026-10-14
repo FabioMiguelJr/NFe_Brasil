@@ -1,4 +1,4 @@
-enum 50112 "NFB Direction"
+enum 50212 "NFB Direction"
 {
     Extensible = false;
     Caption = 'Operation Direction (tpNF)';

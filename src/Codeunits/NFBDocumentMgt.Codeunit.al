@@ -1,4 +1,4 @@
-codeunit 50109 "NFB Document Mgt"
+codeunit 50209 "NFB Document Mgt"
 {
     var
         ValidationFailedErr: Label 'NF-e %1 has %2 validation error(s). Fix them and validate again.', Comment = '%1 = document no., %2 = error count';

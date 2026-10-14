@@ -1,4 +1,4 @@
-table 50100 "NFB Setup"
+table 50200 "NFB Setup"
 {
     Caption = 'NF-e Setup';
     DataClassification = CustomerContent;

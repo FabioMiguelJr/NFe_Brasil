@@ -1,4 +1,4 @@
-pageextension 50110 "NFB Sales Order" extends "Sales Order"
+pageextension 50210 "NFB Sales Order" extends "Sales Order"
 {
     layout
     {

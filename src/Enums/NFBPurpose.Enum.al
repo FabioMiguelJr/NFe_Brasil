@@ -1,4 +1,4 @@
-enum 50108 "NFB Purpose"
+enum 50208 "NFB Purpose"
 {
     Extensible = false;
     Caption = 'NF-e Purpose (finNFe)';

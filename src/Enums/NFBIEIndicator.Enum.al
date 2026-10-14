@@ -1,4 +1,4 @@
-enum 50105 "NFB IE Indicator"
+enum 50205 "NFB IE Indicator"
 {
     Extensible = false;
     Caption = 'State Registration Indicator (indIEDest)';

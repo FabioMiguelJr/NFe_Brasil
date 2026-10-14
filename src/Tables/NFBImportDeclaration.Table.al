@@ -1,4 +1,4 @@
-table 50115 "NFB Import Declaration"
+table 50215 "NFB Import Declaration"
 {
     Caption = 'NF-e Import Declaration (DI)';
     DataClassification = CustomerContent;

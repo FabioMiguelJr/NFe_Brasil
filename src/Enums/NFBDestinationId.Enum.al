@@ -1,4 +1,4 @@
-enum 50113 "NFB Destination Id"
+enum 50213 "NFB Destination Id"
 {
     Extensible = false;
     Caption = 'Destination (idDest)';

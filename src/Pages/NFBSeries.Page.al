@@ -1,4 +1,4 @@
-page 50101 "NFB Series"
+page 50201 "NFB Series"
 {
     PageType = List;
     SourceTable = "NFB Series";

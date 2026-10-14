@@ -1,4 +1,4 @@
-page 50111 "NFB Document Subform"
+page 50211 "NFB Document Subform"
 {
     PageType = ListPart;
     SourceTable = "NFB Document Line";

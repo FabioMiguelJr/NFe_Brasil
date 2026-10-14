@@ -1,4 +1,4 @@
-permissionset 50100 "NFB All"
+permissionset 50200 "NFB All"
 {
     Assignable = true;
     Caption = 'NF-e Brasil - All';

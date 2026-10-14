@@ -1,4 +1,4 @@
-table 50114 "NFB Document Transport"
+table 50214 "NFB Document Transport"
 {
     Caption = 'NF-e Transport (transp)';
     DataClassification = CustomerContent;

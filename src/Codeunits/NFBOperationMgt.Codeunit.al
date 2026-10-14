@@ -1,4 +1,4 @@
-codeunit 50100 "NFB Operation Mgt"
+codeunit 50200 "NFB Operation Mgt"
 {
     procedure ApplyToSalesHeader(var SalesHeader: Record "Sales Header")
     var

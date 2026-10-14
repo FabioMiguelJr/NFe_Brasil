@@ -1,4 +1,4 @@
-page 50104 "NFB CFOP List"
+page 50204 "NFB CFOP List"
 {
     PageType = List;
     SourceTable = "NFB CFOP";
