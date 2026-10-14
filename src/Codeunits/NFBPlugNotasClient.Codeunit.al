@@ -49,7 +49,7 @@ codeunit 50122 "NFB PlugNotas Client"
             exit(ApiKey);
         NFBSetup.Get();
         if NFBSetup."Use PlugNotas Sandbox" and (NFBSetup."Provider URL" = '') then
-            exit(PublicSandboxKeyTxt);
+            exit(SecretStrSubstNo(PublicSandboxKeyTxt));
         Error(NoApiKeyErr);
     end;
 
