@@ -1,4 +1,4 @@
-pageextension 50112 "NFB Sales Credit Memo" extends "Sales Credit Memo"
+pageextension 50137 "NFB Sales Credit Memo" extends "Sales Credit Memo"
 {
     layout
     {

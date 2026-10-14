@@ -32,6 +32,26 @@ Esta entrega cobre a **fase 1** do plano. As fases seguintes (XML e DANFE, PlugN
 
 Origens suportadas: fatura e nota de crédito de venda, fatura de compra (importação ou NF-e de entrada própria), nota de crédito de compra (devolução de compra) e remessa de transferência.
 
+## IDs e convivência com outras extensões
+
+A extensão usa a faixa 50100–50199, que também é usada pelas extensões Academia2026 (50100–50149) e BC-CustomerFollowUp (50150–50199) publicadas no mesmo servidor. O BC só recusa a publicação quando o mesmo tipo de objeto usa o mesmo ID em duas extensões, ou quando duas extensões da mesma tabela usam o mesmo ID de campo. Por isso, só os objetos da NF-e Brasil que coincidiam com IDs já usados foram renumerados:
+
+| Objeto | ID antigo | ID novo | Conflitava com |
+|---|---|---|---|
+| codeunit NFB Operation Mgt | 50100 | 50111 | Academia2026 |
+| codeunit NFB Tax Engine | 50101 | 50112 | Academia2026Plus |
+| page NFB Setup | 50100 | 50119 | CalculadoraMMCMDC |
+| table NFB Document Transport | 50114 | 50117 | ABC Vehicle |
+| tableextension NFB Location | 50113 | 50126 | ABC Customer Ext |
+| pageextension NFB Sales Order | 50110 | 50135 | CustomerListExt |
+| pageextension NFB Sales Invoice | 50111 | 50136 | MyBusinessManagerExt |
+| pageextension NFB Sales Credit Memo | 50112 | 50137 | CustomerCardViaCEPExt |
+| pageextension NFB Sales Return Order | 50113 | 50138 | ABC Customer Card Ext |
+| pageextension NFB Posted Sales Credit Memos | 50120 | 50139 | UsingAPI |
+| campo NFB Person Type (Customer) | 50100 | 50108 | ABC Vehicle No. (Academia2026) |
+
+Ao criar objetos nas próximas fases, confira os IDs já usados pelas duas extensões antes de escolher um número livre.
+
 ## Configuração inicial
 
 1. Publique e instale a extensão. A instalação carrega os dados padrão: CFOPs principais, 15 tipos de operação, regras de exemplo e o município do Rio de Janeiro. Também é possível usar **Load Default Data** no NF-e Setup. Atribua o conjunto de permissões **NFB All** aos usuários que vão usar a extensão.

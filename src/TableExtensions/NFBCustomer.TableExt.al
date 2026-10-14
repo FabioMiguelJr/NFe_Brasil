@@ -2,7 +2,7 @@ tableextension 50101 "NFB Customer" extends Customer
 {
     fields
     {
-        field(50100; "NFB Person Type"; Enum "NFB Person Type")
+        field(50108; "NFB Person Type"; Enum "NFB Person Type")
         {
             Caption = 'Person Type';
             DataClassification = CustomerContent;

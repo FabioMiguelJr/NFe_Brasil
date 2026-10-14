@@ -1,4 +1,4 @@
-tableextension 50113 "NFB Location" extends Location
+tableextension 50126 "NFB Location" extends Location
 {
     fields
     {
