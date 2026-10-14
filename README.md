@@ -2,7 +2,7 @@
 
 Extensão AL (prefixo `NFB`, IDs 50100–50199) que adiciona ao Business Central 26 W1 on-premises os cadastros fiscais, o cálculo e a contabilização dos tributos brasileiros e o documento fiscal NF-e modelo 55.
 
-Estão entregues a **fase 1** (cadastros, impostos, contabilização e documento fiscal) e a **fase 2** (XML, validação XSD, arquivos, DANFE e relatório por período). As fases seguintes (PlugNotas, SEFAZ direto com assinatura, apuração e contas a pagar dos tributos) ainda não estão implementadas.
+Estão entregues a **fase 1** (cadastros, impostos, contabilização e documento fiscal), a **fase 2** (XML, validação XSD, arquivos, DANFE e relatório por período) e a **fase 3** (emissão pelo PlugNotas e modo arquivo). As fases seguintes (SEFAZ direto com assinatura, apuração e contas a pagar dos tributos) ainda não estão implementadas.
 
 > **Atenção:** o código não foi compilado no ambiente onde foi escrito, porque os símbolos do BC não estavam acessíveis. Antes de publicar, compile no VS Code com os símbolos do seu BC 26 (`AL: Download symbols` e depois `AL: Package`) e corrija o que o compilador apontar.
 
@@ -42,6 +42,56 @@ Estão entregues a **fase 1** (cadastros, impostos, contabilização e documento
 O XML gerado segue o layout da SEFAZ e pode ser assinado e transmitido por qualquer emissor. A assinatura digital fica para a fase 4.
 
 Os layouts RDLC são gerados pelo script `tools/generate_rdlc.py` (`python3 tools/generate_rdlc.py` na raiz do projeto). Para mudar o visual do DANFE, altere o script e gere de novo, ou edite o `.rdlc` direto no Report Builder.
+
+## O que a fase 3 entrega
+
+| Área | Objetos |
+|---|---|
+| Interface de provedor | Interface NFB IFiscal Provider, implementada pelo enum NFB Issue Mode (50101): File Only, SEFAZ Direct (fase 4) e PlugNotas |
+| PlugNotas | Codeunits NFB PlugNotas Payload (50121, JSON), NFB PlugNotas Client (50122, REST) e NFB PlugNotas Provider (50123) |
+| Modo arquivo | Codeunit NFB File Provider (50117) e importação do XML autorizado (nfeProc) e de eventos (procEventoNFe) |
+| Eventos | Tabela NFB Document Event (50120), página NFB Document Events (50122), página de diálogo NFB Event Dialog (50117) e enum NFB Event Type (50115) |
+| Orquestração | Codeunit NFB Provider Mgt (50116), com envio, consulta, cancelamento, CC-e e importação |
+| Fila de tarefas | Codeunit NFB Job Queue Handler (50119), que consulta as NF-e enviadas e os eventos pendentes |
+| SEFAZ direto | Codeunit NFB SEFAZ Provider (50118), só com o aviso de que a opção chega na fase 4 |
+| Atualização | Codeunit NFB Upgrade (50124), que preenche os campos novos do Setup em instalações existentes |
+
+### Configurar o PlugNotas
+
+1. No **NF-e Setup**, escolha **Issue Mode = PlugNotas**.
+2. No grupo **PlugNotas**:
+   - **Use PlugNotas Sandbox** marcado usa `https://api.sandbox.plugnotas.com.br`, que simula as respostas e não exige contrato. Sem API Key, usa a chave pública de testes da TecnoSpeed.
+   - Desmarcado usa `https://api.plugnotas.com.br`. Nesse caso o campo **Environment** do Setup decide entre homologação e produção da SEFAZ (vai no JSON como `config.producao`).
+   - **API Key** é a chave do portal PlugNotas. Ela fica no isolated storage do BC, não na tabela.
+   - **Provider URL** só precisa ser preenchido para usar outro endereço.
+3. Cadastre o certificado A1 e a empresa emitente no portal ou na API do PlugNotas. Sandbox e API real têm cadastros separados.
+4. Use **Test Connection** no Setup. Ele consulta a empresa no PlugNotas e mostra se o servidor do BC alcança a API. Se der erro de conexão, libere a saída do servidor do BC para o host do PlugNotas no firewall.
+5. Use **Create Status Query Job** para criar a tarefa recorrente que consulta as notas enviadas e os eventos pendentes (intervalo em **Status Query Interval**).
+
+Ao atualizar uma instalação existente, a codeunit NFB Upgrade (50124) liga **Use PlugNotas Sandbox** e define o intervalo de consulta em 5 minutos, para que nenhuma chamada vá à API real por engano.
+
+### Emitir pelo PlugNotas
+
+1. No **NF-e Monitor** ou no cartão, **Send** valida a nota, gera o XML (e a validação XSD, se ativa), monta o JSON, guarda o JSON em **Files** e envia para o PlugNotas. O status passa a **Sent**.
+2. O PlugNotas processa de forma assíncrona. **Query Status** (ou a tarefa da fila) consulta o resultado:
+   - autorizada: status **Authorized**, protocolo gravado, XML autorizado e DANFE em PDF do PlugNotas guardados em **Files**;
+   - rejeitada: status **Rejected** com o motivo. Corrija e use **Send** de novo. O número da nota é mantido; o `idIntegracao` ganha um sufixo (`-2`, `-3`) porque o PlugNotas exige que seja único.
+3. **Cancel NF-e** pede a justificativa (15 a 255 caracteres) e envia o cancelamento. **Correction Letter (CC-e)** pede o texto da correção (15 a 1000 caracteres). Os dois ficam em **Events** e são consultados até serem registrados. Um cancelamento registrado muda a nota para **Cancelled**.
+4. **Download DANFE (PDF)** baixa o DANFE do PlugNotas. Se ele não existir, imprime o DANFE da extensão.
+
+### Modo arquivo (File Only)
+
+**Send** gera e baixa o XML sem assinatura para outro sistema transmitir. Depois, **Import Authorized XML** importa o XML autorizado (`nfeProc`) ou o XML de um evento (`procEventoNFe`). A nota é encontrada pela chave de acesso, o status é atualizado pelo cStat e o arquivo fica em **Files**.
+
+### Pontos a conferir no sandbox
+
+A documentação completa do PlugNotas (Swagger) não pôde ser lida no ambiente onde o código foi escrito. Os nomes dos campos seguem os exemplos oficiais da TecnoSpeed para a reforma tributária (`github.com/tecnospeed/Arquivos_RTC`) e a documentação pública. Estes pontos não foram confirmados e devem ser testados no sandbox antes de produção:
+
+- o grupo do transportador (`transporte.transportadora` com `cpfCnpj` e `razaoSocial`);
+- o grupo de cobrança (`cobranca.fatura` e `cobranca.parcelas`);
+- a estrutura de importação (`itens[].importacao`, com DI e imposto de importação) e de exportação (`exportacao`);
+- o campo do destinatário estrangeiro (`destinatario.idEstrangeiro`);
+- o status `DENEGADO`, que a extensão trata como denegação, e o cStat devolvido em cada consulta.
 
 ## Fluxo
 
@@ -95,7 +145,9 @@ Ao criar objetos nas próximas fases, confira os IDs já usados pelas duas exten
 - DIFAL calculado apenas com base única.
 - Devolução de compra usa a nota de crédito de compra. A remessa de devolução não gera NF-e.
 - Os indicadores (cues) do Role Center ficaram para uma fase seguinte.
-- Sem transmissão nem assinatura digital. O XML sai sem assinatura; a validação XSD insere uma assinatura fictícia só para conferir o restante do documento.
+- Sem transmissão direta à SEFAZ nem assinatura digital no BC (fase 4). O XML gerado sai sem assinatura; a validação XSD insere uma assinatura fictícia só para conferir o restante do documento. Pelo PlugNotas, quem assina é o próprio PlugNotas.
+- Inutilização de numeração ainda não está implementada.
+- O PlugNotas é consultado por polling (fila de tarefas), sem webhook.
 - O DANFE imprime uma NF-e por execução, com os dados do cabeçalho na primeira página.
 - O código de barras do DANFE usa a fonte IDAutomationC128S. Ela precisa estar instalada no servidor do BC para que o PDF saia com o código de barras.
 - A validação XSD usa .NET (System.Xml) e grava os schemas numa pasta temporária do servidor, por isso só funciona on-premises.

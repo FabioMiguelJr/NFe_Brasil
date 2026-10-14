@@ -79,6 +79,13 @@ pageextension 50140 "NFB Business Manager RC" extends "Business Manager Role Cen
                     ToolTip = 'Opens the SEFAZ schemas used to check the generated XML.';
                     RunObject = page "NFB XSD Schemas";
                 }
+                action(NFBDocumentEvents)
+                {
+                    ApplicationArea = All;
+                    Caption = 'NF-e Events';
+                    ToolTip = 'Opens the cancellation and correction letter events.';
+                    RunObject = page "NFB Document Events";
+                }
             }
         }
     }

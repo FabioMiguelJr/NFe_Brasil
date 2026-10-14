@@ -124,6 +124,19 @@ table 50100 "NFB Setup"
             InitValue = '-03:00';
             ToolTip = 'Specifies the time zone offset written in dhEmi and dhSaiEnt. Brasília time is -03:00.';
         }
+        field(40; "Use PlugNotas Sandbox"; Boolean)
+        {
+            Caption = 'Use PlugNotas Sandbox';
+            InitValue = true;
+            ToolTip = 'Specifies whether PlugNotas calls go to the sandbox (simulated responses, no contract needed). Turn it off to use the real API, where Environment chooses SEFAZ homologation or production.';
+        }
+        field(41; "Status Query Minutes"; Integer)
+        {
+            Caption = 'Status Query Interval (Minutes)';
+            InitValue = 5;
+            MinValue = 1;
+            ToolTip = 'Specifies how often the job queue entry queries the sent NF-e and the pending events.';
+        }
     }
 
     keys

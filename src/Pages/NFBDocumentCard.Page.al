@@ -136,7 +136,9 @@ page 50110 "NFB Document Card"
                 field("Status Reason"; Rec."Status Reason") { ApplicationArea = All; }
                 field("Protocol No."; Rec."Protocol No.") { ApplicationArea = All; }
                 field("Authorization DateTime"; Rec."Authorization DateTime") { ApplicationArea = All; }
-                field("Provider Id"; Rec."Provider Id") { ApplicationArea = All; }
+                field("Provider Id"; Rec."Provider Id") { ApplicationArea = All; ToolTip = 'Specifies the id of the NF-e at PlugNotas.'; }
+                field("Provider Status"; Rec."Provider Status") { ApplicationArea = All; ToolTip = 'Specifies the last status returned by PlugNotas.'; }
+                field("Last Status Query"; Rec."Last Status Query") { ApplicationArea = All; ToolTip = 'Specifies when the status was last queried.'; }
             }
         }
     }
@@ -157,6 +159,95 @@ page 50110 "NFB Document Card"
                     NFBDocumentMgt: Codeunit "NFB Document Mgt";
                 begin
                     NFBDocumentMgt.ValidateDocument(Rec, true);
+                    CurrPage.Update(false);
+                end;
+            }
+            action(SendNFe)
+            {
+                ApplicationArea = All;
+                Caption = 'Send';
+                Image = SendTo;
+                ToolTip = 'Validates the NF-e, generates the XML and sends it through the issue mode of NF-e Setup (PlugNotas or File Only).';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    NFBProviderMgt.Send(Rec, true);
+                    CurrPage.Update(false);
+                end;
+            }
+            action(QueryStatus)
+            {
+                ApplicationArea = All;
+                Caption = 'Query Status';
+                Image = Refresh;
+                ToolTip = 'Asks the authorizer for the result of the sent NF-e and downloads the authorized XML and DANFE.';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    NFBProviderMgt.QueryStatus(Rec, true);
+                    CurrPage.Update(false);
+                end;
+            }
+            action(CancelNFe)
+            {
+                ApplicationArea = All;
+                Caption = 'Cancel NF-e';
+                Image = Cancel;
+                ToolTip = 'Requests the cancellation of the authorized NF-e. SEFAZ accepts it up to 24 hours after the authorization.';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    NFBProviderMgt.RequestCancellation(Rec);
+                    CurrPage.Update(false);
+                end;
+            }
+            action(CorrectionLetter)
+            {
+                ApplicationArea = All;
+                Caption = 'Correction Letter (CC-e)';
+                Image = EditLines;
+                ToolTip = 'Requests a correction letter for the authorized NF-e.';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    NFBProviderMgt.RequestCorrectionLetter(Rec);
+                    CurrPage.Update(false);
+                end;
+            }
+            action(DownloadPdf)
+            {
+                ApplicationArea = All;
+                Caption = 'Download DANFE (PDF)';
+                Image = SendAsPDF;
+                ToolTip = 'Downloads the DANFE returned by the provider. If there is none, prints the DANFE of the extension.';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    NFBProviderMgt.DownloadPdf(Rec);
+                end;
+            }
+            action(ImportAuthorizedXml)
+            {
+                ApplicationArea = All;
+                Caption = 'Import Authorized XML';
+                Image = ImportCodes;
+                ToolTip = 'Imports the authorized XML (nfeProc) or an event XML (procEventoNFe) produced by another system. The NF-e is found by the access key.';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    NFBProviderMgt.ImportAuthorizedXml();
                     CurrPage.Update(false);
                 end;
             }
@@ -222,6 +313,15 @@ page 50110 "NFB Document Card"
         }
         area(Navigation)
         {
+            action(Events)
+            {
+                ApplicationArea = All;
+                Caption = 'Events';
+                Image = History;
+                ToolTip = 'Shows the cancellation and correction letter events of this NF-e.';
+                RunObject = page "NFB Document Events";
+                RunPageLink = "Document No." = field("No.");
+            }
             action(Files)
             {
                 ApplicationArea = All;
@@ -248,6 +348,10 @@ page 50110 "NFB Document Card"
         area(Promoted)
         {
             actionref(ValidateNFe_Promoted; ValidateNFe) { }
+            actionref(SendNFe_Promoted; SendNFe) { }
+            actionref(QueryStatus_Promoted; QueryStatus) { }
+            actionref(CancelNFe_Promoted; CancelNFe) { }
+            actionref(CorrectionLetter_Promoted; CorrectionLetter) { }
             actionref(SourceDocument_Promoted; SourceDocument) { }
             actionref(GenerateXml_Promoted; GenerateXml) { }
             actionref(DownloadXml_Promoted; DownloadXml) { }

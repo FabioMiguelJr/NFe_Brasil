@@ -369,6 +369,21 @@ table 50109 "NFB Document Header"
             Caption = 'Provider Id';
             Editable = false;
         }
+        field(105; "Provider Status"; Text[30])
+        {
+            Caption = 'Provider Status';
+            Editable = false;
+        }
+        field(106; "Provider Send Count"; Integer)
+        {
+            Caption = 'Provider Send Count';
+            Editable = false;
+        }
+        field(107; "Last Status Query"; DateTime)
+        {
+            Caption = 'Last Status Query';
+            Editable = false;
+        }
         // infAdic / exporta
         field(110; "Additional Info"; Text[2048])
         {

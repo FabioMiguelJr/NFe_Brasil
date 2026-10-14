@@ -56,8 +56,27 @@ page 50119 "NFB Setup"
             }
             group(Provider)
             {
-                Caption = 'Provider';
-                field("Provider URL"; Rec."Provider URL") { ApplicationArea = All; }
+                Caption = 'PlugNotas';
+                field("Use PlugNotas Sandbox"; Rec."Use PlugNotas Sandbox") { ApplicationArea = All; }
+                field("Provider URL"; Rec."Provider URL") { ApplicationArea = All; ToolTip = 'Specifies a different PlugNotas address. Leave it blank to use the sandbox or the real API according to Use PlugNotas Sandbox.'; }
+                field(ApiKeyField; ApiKey)
+                {
+                    ApplicationArea = All;
+                    Caption = 'API Key';
+                    ExtendedDatatype = Masked;
+                    ToolTip = 'Specifies the PlugNotas API key (x-api-key). It is kept in isolated storage, not in the table. In the sandbox, when it is blank, the public test key is used.';
+
+                    trigger OnValidate()
+                    var
+                        NFBPlugNotasClient: Codeunit "NFB PlugNotas Client";
+                    begin
+                        if ApiKey = MaskedKey(true) then
+                            exit;
+                        NFBPlugNotasClient.SetApiKey(ApiKey);
+                        ApiKey := MaskedKey(NFBPlugNotasClient.HasApiKey());
+                    end;
+                }
+                field("Status Query Minutes"; Rec."Status Query Minutes") { ApplicationArea = All; }
             }
         }
     }
@@ -76,9 +95,40 @@ page 50119 "NFB Setup"
             action(cClassTrib) { ApplicationArea = All; Caption = 'cClassTrib'; Image = List; RunObject = page "NFB cClassTrib List"; }
             action(XSDSchemas) { ApplicationArea = All; Caption = 'XSD Schemas'; Image = XMLSetup; RunObject = page "NFB XSD Schemas"; }
             action(DocumentFiles) { ApplicationArea = All; Caption = 'NF-e Files'; Image = Documents; RunObject = page "NFB Document Files"; }
+            action(DocumentEvents) { ApplicationArea = All; Caption = 'NF-e Events'; Image = History; RunObject = page "NFB Document Events"; }
         }
         area(Processing)
         {
+            action(TestConnection)
+            {
+                ApplicationArea = All;
+                Caption = 'Test Connection';
+                Image = TestDatabase;
+                ToolTip = 'Checks that Business Central reaches the authorizer of the issue mode and that the company is registered there.';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    CurrPage.SaveRecord();
+                    Commit();
+                    NFBProviderMgt.TestConnection();
+                end;
+            }
+            action(CreateJobQueueEntry)
+            {
+                ApplicationArea = All;
+                Caption = 'Create Status Query Job';
+                Image = Job;
+                ToolTip = 'Creates a recurring job queue entry that queries the sent NF-e and the pending events.';
+
+                trigger OnAction()
+                var
+                    NFBProviderMgt: Codeunit "NFB Provider Mgt";
+                begin
+                    NFBProviderMgt.CreateJobQueueEntry(Rec."Status Query Minutes");
+                end;
+            }
             action(LoadDefaults)
             {
                 ApplicationArea = All;
@@ -97,11 +147,24 @@ page 50119 "NFB Setup"
     }
 
     trigger OnOpenPage()
+    var
+        NFBPlugNotasClient: Codeunit "NFB PlugNotas Client";
     begin
         Rec.Reset();
         if not Rec.Get() then begin
             Rec.Init();
             Rec.Insert();
         end;
+        ApiKey := MaskedKey(NFBPlugNotasClient.HasApiKey());
     end;
+
+    local procedure MaskedKey(HasKey: Boolean): Text
+    begin
+        if HasKey then
+            exit('********');
+        exit('');
+    end;
+
+    var
+        ApiKey: Text;
 }
