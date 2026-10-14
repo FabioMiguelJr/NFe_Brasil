@@ -1,4 +1,4 @@
-table 50108 "NFB Tax Posting Setup"
+table 50208 "NFB Tax Posting Setup"
 {
     Caption = 'NF-e Tax Posting Setup';
     DataClassification = CustomerContent;

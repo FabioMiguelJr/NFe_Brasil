@@ -1,4 +1,4 @@
-pageextension 50109 "NFB Location Card" extends "Location Card"
+pageextension 50209 "NFB Location Card" extends "Location Card"
 {
     layout
     {

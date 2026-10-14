@@ -1,4 +1,4 @@
-table 50109 "NFB Document Header"
+table 50209 "NFB Document Header"
 {
     Caption = 'NF-e';
     DataClassification = CustomerContent;

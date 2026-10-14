@@ -1,4 +1,4 @@
-page 50105 "NFB cClassTrib List"
+page 50205 "NFB cClassTrib List"
 {
     PageType = List;
     SourceTable = "NFB cClassTrib";

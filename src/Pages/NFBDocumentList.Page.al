@@ -1,4 +1,4 @@
-page 50109 "NFB Document List"
+page 50209 "NFB Document List"
 {
     PageType = List;
     SourceTable = "NFB Document Header";

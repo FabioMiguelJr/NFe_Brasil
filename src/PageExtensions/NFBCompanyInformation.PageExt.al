@@ -1,4 +1,4 @@
-pageextension 50100 "NFB Company Information" extends "Company Information"
+pageextension 50200 "NFB Company Information" extends "Company Information"
 {
     layout
     {

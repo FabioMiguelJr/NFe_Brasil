@@ -1,4 +1,4 @@
-pageextension 50101 "NFB Customer Card" extends "Customer Card"
+pageextension 50201 "NFB Customer Card" extends "Customer Card"
 {
     layout
     {

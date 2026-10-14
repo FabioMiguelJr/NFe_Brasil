@@ -1,4 +1,4 @@
-codeunit 50108 "NFB Posting Subscribers"
+codeunit 50208 "NFB Posting Subscribers"
 {
     // Hooks the NF-e flow into standard posting:
     // before posting  -> validate fiscal master data, calculate taxes, add tax system lines (same transaction);

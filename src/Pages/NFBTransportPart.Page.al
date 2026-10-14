@@ -1,4 +1,4 @@
-page 50118 "NFB Transport Part"
+page 50218 "NFB Transport Part"
 {
     PageType = CardPart;
     SourceTable = "NFB Document Transport";

@@ -1,4 +1,4 @@
-pageextension 50106 "NFB Units of Measure" extends "Units of Measure"
+pageextension 50206 "NFB Units of Measure" extends "Units of Measure"
 {
     layout
     {

@@ -17,8 +17,8 @@
   "target": "OnPrem",
   "idRanges": [
     {
-      "from": 50100,
-      "to": 50199
+      "from": 50200,
+      "to": 50399
     }
   ],
   "resourceExposurePolicy": {

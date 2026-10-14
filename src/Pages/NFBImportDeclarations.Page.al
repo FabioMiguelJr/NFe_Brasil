@@ -1,4 +1,4 @@
-page 50114 "NFB Import Declarations"
+page 50214 "NFB Import Declarations"
 {
     PageType = List;
     SourceTable = "NFB Import Declaration";

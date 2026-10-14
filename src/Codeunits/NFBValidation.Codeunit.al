@@ -1,4 +1,4 @@
-codeunit 50104 "NFB Validation"
+codeunit 50204 "NFB Validation"
 {
     procedure OnlyDigits(Value: Text): Text
     begin

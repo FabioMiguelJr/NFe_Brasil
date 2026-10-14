@@ -1,4 +1,4 @@
-pageextension 50123 "NFB Purchase Credit Memo" extends "Purchase Credit Memo"
+pageextension 50223 "NFB Purchase Credit Memo" extends "Purchase Credit Memo"
 {
     layout
     {

@@ -1,4 +1,4 @@
-codeunit 50103 "NFB Document Builder"
+codeunit 50203 "NFB Document Builder"
 {
     var
         NFBSetup: Record "NFB Setup";

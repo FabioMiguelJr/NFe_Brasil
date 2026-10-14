@@ -1,13 +1,13 @@
-tableextension 50101 "NFB Customer" extends Customer
+tableextension 50201 "NFB Customer" extends Customer
 {
     fields
     {
-        field(50100; "NFB Person Type"; Enum "NFB Person Type")
+        field(50200; "NFB Person Type"; Enum "NFB Person Type")
         {
             Caption = 'Person Type';
             DataClassification = CustomerContent;
         }
-        field(50101; "NFB CPF/CNPJ"; Code[14])
+        field(50201; "NFB CPF/CNPJ"; Code[14])
         {
             Caption = 'CPF/CNPJ';
             DataClassification = CustomerContent;
@@ -21,39 +21,39 @@ tableextension 50101 "NFB Customer" extends Customer
                     NFBValidation.CheckCpfCnpj("NFB CPF/CNPJ");
             end;
         }
-        field(50102; "NFB IE Indicator"; Enum "NFB IE Indicator")
+        field(50202; "NFB IE Indicator"; Enum "NFB IE Indicator")
         {
             Caption = 'IE Indicator (indIEDest)';
             DataClassification = CustomerContent;
             InitValue = "Non-Contributor";
         }
-        field(50103; "NFB IE"; Code[14])
+        field(50203; "NFB IE"; Code[14])
         {
             Caption = 'State Registration (IE)';
             DataClassification = CustomerContent;
         }
-        field(50104; "NFB Final Consumer"; Boolean)
+        field(50204; "NFB Final Consumer"; Boolean)
         {
             Caption = 'Final Consumer';
             DataClassification = CustomerContent;
         }
-        field(50105; "NFB SUFRAMA"; Code[9])
+        field(50205; "NFB SUFRAMA"; Code[9])
         {
             Caption = 'SUFRAMA Registration';
             DataClassification = CustomerContent;
         }
-        field(50106; "NFB XML E-Mail"; Text[80])
+        field(50206; "NFB XML E-Mail"; Text[80])
         {
             Caption = 'NF-e XML E-Mail';
             DataClassification = CustomerContent;
             ExtendedDatatype = EMail;
         }
-        field(50107; "NFB Foreign Id"; Code[20])
+        field(50207; "NFB Foreign Id"; Code[20])
         {
             Caption = 'Foreign Id (idEstrangeiro)';
             DataClassification = CustomerContent;
         }
-        field(50110; "NFB Municipality Code"; Code[7])
+        field(50210; "NFB Municipality Code"; Code[7])
         {
             Caption = 'Municipality (IBGE)';
             DataClassification = CustomerContent;
@@ -70,17 +70,17 @@ tableextension 50101 "NFB Customer" extends Customer
                     City := CopyStr(NFBMunicipality.Name, 1, MaxStrLen(City));
             end;
         }
-        field(50111; "NFB UF"; Code[2])
+        field(50211; "NFB UF"; Code[2])
         {
             Caption = 'State (UF)';
             DataClassification = CustomerContent;
         }
-        field(50112; "NFB Address No."; Text[60])
+        field(50212; "NFB Address No."; Text[60])
         {
             Caption = 'Address Number';
             DataClassification = CustomerContent;
         }
-        field(50113; "NFB District"; Text[60])
+        field(50213; "NFB District"; Text[60])
         {
             Caption = 'District (Bairro)';
             DataClassification = CustomerContent;

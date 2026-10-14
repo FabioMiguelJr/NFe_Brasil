@@ -1,4 +1,4 @@
-pageextension 50116 "NFB Sales Cr. Memo Subform" extends "Sales Cr. Memo Subform"
+pageextension 50216 "NFB Sales Cr. Memo Subform" extends "Sales Cr. Memo Subform"
 {
     layout
     {

@@ -1,4 +1,4 @@
-table 50111 "NFB Document Payment"
+table 50211 "NFB Document Payment"
 {
     Caption = 'NF-e Payment (detPag)';
     DataClassification = CustomerContent;

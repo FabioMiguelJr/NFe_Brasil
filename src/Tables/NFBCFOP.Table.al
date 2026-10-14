@@ -1,4 +1,4 @@
-table 50104 "NFB CFOP"
+table 50204 "NFB CFOP"
 {
     Caption = 'CFOP';
     DataClassification = CustomerContent;
