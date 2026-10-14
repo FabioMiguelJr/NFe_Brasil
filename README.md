@@ -32,9 +32,21 @@ Esta entrega cobre a **fase 1** do plano. As fases seguintes (XML e DANFE, PlugN
 
 Origens suportadas: fatura e nota de crédito de venda, fatura de compra (importação ou NF-e de entrada própria), nota de crédito de compra (devolução de compra) e remessa de transferência.
 
+## Faixa de IDs
+
+A extensão usa a faixa **50200–50399**. A faixa original era 50100–50199, mas a publicação falhou com o erro "The application object of type 'Table' with the ID '50114' is defined in multiple apps", porque ela já é ocupada por outras extensões publicadas no mesmo servidor:
+
+| Extensão | Faixa |
+|---|---|
+| Academia2026 | 50100–50149 |
+| BC-CustomerFollowUp | 50150–50199 |
+| NF-e Brasil | 50200–50399 |
+
+Todos os objetos e os campos das extensões de tabela foram renumerados somando 100 ao ID original (por exemplo, a tabela 50114 passou a ser 50214). Novos objetos das próximas fases devem ficar dentro de 50200–50399.
+
 ## Configuração inicial
 
-1. Publique e instale a extensão. A instalação carrega os dados padrão: CFOPs principais, 15 tipos de operação, regras de exemplo e o município do Rio de Janeiro. Também é possível usar **Load Default Data** no NF-e Setup.
+1. Publique e instale a extensão. A instalação carrega os dados padrão: CFOPs principais, 15 tipos de operação, regras de exemplo e o município do Rio de Janeiro. Também é possível usar **Load Default Data** no NF-e Setup. Atribua o conjunto de permissões **NFB All** aos usuários que vão usar a extensão.
 2. Em **Company Information**, preencha CNPJ, IE, IM, CNAE, regime tributário e endereço com código IBGE do município.
 3. Importe as tabelas de referência pelas ações **Import CSV** (arquivos separados por `;` com linha de cabeçalho):
    - Municípios: `código IBGE;nome;UF`
